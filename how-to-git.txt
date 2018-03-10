@@ -28,9 +28,9 @@ git reflog --date=iso
 # show the differences between local and HEAD
 git status
 # add to staging and commit and push
-
-
-
+git add <filename>
+git commit -m "misc...."
+git push origin master
 
 
 
@@ -40,5 +40,61 @@ git status
 # push single file to HEAD
 
 
+
+
+# change from HTTPS to SSH
+git remote set-url origin git@github.com:J-YSM/py-learn.git
+
+# check git SSH key
+$ eval "$(ssh-agent -s)"
+$ ssh-add -l
+# if agent no identities, generate new SSH key
+# https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
+$ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+$ ssh-add ~/.ssh/id_rsa
+$ clip < ~/.ssh/id_rsa.pub 
+# Copies the contents of the id_rsa.pub file to your clipboard
+
+
+Justin@Justin-PC MINGW64 ~/Documents/GitHub/py-learn (master)
+$ ssh-keygen -t rsa -b 4096 -C "yeoshuiming@gmail.com"
+Generating public/private rsa key pair.
+Enter file in which to save the key (/c/Users/Justin/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /c/Users/Justin/.ssh/id_rsa.
+Your public key has been saved in /c/Users/Justin/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:Ax2qJHRruMquNL4X6TFxPKGivqc60pg8i0f7scHUYvo yeoshuiming@gmail.com
+The key's randomart image is:
++---[RSA 4096]----+
+|  . .   .        |
+| . o o o .       |
+|  o * + .        |
+| . B * .         |
+|. o O o S        |
+|o..X .   .       |
+|+Oo.B            |
+|X+== +           |
+|BXO.E            |
++----[SHA256]-----+
+Justin@Justin-PC MINGW64 ~/Documents/GitHub/py-learn (master)
+$ ssh-add ~/.ssh/id_rsa
+Identity added: /c/Users/Justin/.ssh/id_rsa (/c/Users/Justin/.ssh/id_rsa)
+
+
+
+
+
+# try connecting with all keys
+$ ssh -vT git@github.com
+
+#Permanently authenticating with Git repositories,
+#Run following command to enable credential caching:
+
+$ git config credential.helper store
+$ git push https://github.com/repo.git
+Username for 'https://github.com': <USERNAME>
+Password for 'https://USERNAME@github.com': <PASSWORD>
 
 
