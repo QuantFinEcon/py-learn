@@ -53,10 +53,16 @@ git push origin
 git log --oneline
 git checkout <branch code first 7 letters e.g. 0c02914>
 #revert to master
+# OTHERWISE, HEAD is detached and not to master (aka latest branch), and cannot push
 git checkout master
 
+# retrieve a file from a older branch
+git log --oneline
+git checkout <branchname> -- .../filepath
+git checkout 0c02914 -- README.md
 
-
+# unstage staged changes
+git reset
 
 
 
