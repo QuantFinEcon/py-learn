@@ -1,7 +1,5 @@
 # py-learn
 
-[![Check out my twitter at https://twitter.com/ExpectArbitrage]]
-
 Personal notes of a python developer from Singapore
 
 ## About this GitRepo
@@ -26,7 +24,7 @@ Contributions are welcome!  For bug reports or requests please [submit an issue]
 Feel free to contact me to discuss any issues, questions, or comments.
 
 * Twitter: [@yeoshuiming](https://twitter.com/ExpectArbitrage)
-* GitHub: [BigPyQuant](https://github.com/J-YSM)
+* GitHub: [J-YSM](https://github.com/J-YSM)
 * LinkedIn: [yeoshuiming](https://www.linkedin.com/in/yeoshuiming)
 * Website: [NoNoiseOnlyAlpha](https://nonoiseonlyalpha.wordpress.com/)
 
