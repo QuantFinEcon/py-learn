@@ -1,0 +1,44 @@
+####################################################
+# SETTING UP GITHUB FROM LOCAL REPO
+#####################################################
+# go to uninit folder
+git init
+
+# add them to staging
+git add
+
+# commit staging files with message 
+git commit -m "First Commit"
+
+# copy remote repository URL (or local remote or remote server)
+git remote add origin https://github.com/J-YSM/py-learn
+# verify new remote URL
+git remote -v
+
+# push changes from local repository to GitHub
+git push origin master
+
+####################################################
+# MISCS
+#####################################################
+
+# check all pushes with mesages
+git reflog --date=iso
+
+# show the differences between local and HEAD
+git status
+# add to staging and commit and push
+
+
+
+
+
+
+
+# pull single file from HEAD
+
+# push single file to HEAD
+
+
+
+
