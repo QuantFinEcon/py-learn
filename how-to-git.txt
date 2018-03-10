@@ -49,7 +49,11 @@ git push origin master
 # otherwise
 git push origin
 
-
+# revert to older branch
+git log --oneline
+git checkout <branch code first 7 letters e.g. 0c02914>
+#revert to master
+git checkout master
 
 
 
