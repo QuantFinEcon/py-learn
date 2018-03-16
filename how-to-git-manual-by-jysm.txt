@@ -93,19 +93,20 @@ Enter passphrase (empty for no passphrase):
 Enter same passphrase again:
 Your identification has been saved in /c/Users/Justin/.ssh/id_rsa.
 Your public key has been saved in /c/Users/Justin/.ssh/id_rsa.pub.
+
 The key fingerprint is:
-SHA256:Ax2qJHRruMquNL4X6TFxPKGivqc60pg8i0f7scHUYvo yeoshuiming@gmail.com
+SHA256:asdbAx60pa2342323g23g23g8i0f7scHUYvo yeoshuiming@gmail.com
 The key's randomart image is:
 +---[RSA 4096]----+
 |  . .   .        |
-| . o o o .       |
+| . o . o .       |
 |  o * + .        |
-| . B * .         |
-|. o O o S        |
+| . B * . s       |
+|. o O . S        |
 |o..X .   .       |
-|+Oo.B            |
+|+Oo.F            |
 |X+== +           |
-|BXO.E            |
+|BXO.R            |
 +----[SHA256]-----+
 Justin@Justin-PC MINGW64 ~/Documents/GitHub/py-learn (master)
 $ ssh-add ~/.ssh/id_rsa
