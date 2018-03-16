@@ -5,7 +5,7 @@
 git init
 
 # add them to staging
-git add
+git add .
 
 # commit staging files with message 
 git commit -m "First Commit"
