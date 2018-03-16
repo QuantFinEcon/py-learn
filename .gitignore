@@ -11,6 +11,13 @@ var/
 .DS_Store
 .project
 *.pdf
+*.doc
+*.docx
+*.xlsx
+*.xls
+*.png
+*.jpeg
+
 
 
 # PyInstaller
