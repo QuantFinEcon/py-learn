@@ -18,7 +18,7 @@ var/
 *.xlsm
 *.png
 *.jpeg
-
+~*
 
 
 # PyInstaller
