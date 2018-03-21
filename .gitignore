@@ -19,6 +19,7 @@ var/
 *.png
 *.jpeg
 ~*
+~.
 
 
 # PyInstaller
