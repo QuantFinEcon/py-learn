@@ -64,6 +64,9 @@ git checkout 0c02914 -- README.md
 # unstage staged changes
 git reset
 
+# compare local copy and remote copy
+git fetch
+git diff
 
 
 
