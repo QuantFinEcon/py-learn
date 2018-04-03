@@ -41,6 +41,10 @@ $ git log --graph --all --decorate
 git checkout <HEAD or branch version> <filepath with extension>
 $ git checkout HEAD Learn-Python-The-Hard-Way/README.md
 
+# pull single file after someone pushes to remote
+$ git fetch
+$ git checkout origin/master -- <folder/filename.ext>
+
 # is HEAD pointing to master?
 $ git symbolic-ref HEAD
 
