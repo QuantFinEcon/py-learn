@@ -35,7 +35,7 @@ git push origin master
 # show all pushed commits w messages
 $ git log
 $ git log --graph --all --decorate
-
+git log --pretty=format:"%h %s" --graph
 
 # pull single file from HEAD
 git checkout <HEAD or branch version> <filepath with extension>
@@ -72,12 +72,12 @@ git reset
 git fetch
 git diff origin/master
 
-
-
-
-
-
-
+# resolving unmerged files
+git status --> u will see unmerged paths e.g. Cannot merge binary files
+git pull --> not possible because of unmerge files
+git add <filepath> && git commit -m "resolved merge conflicts"
+git status --> no more unmerged paths
+git pull --> Already up-to-date.
 
 
 
