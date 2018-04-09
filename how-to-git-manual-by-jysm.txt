@@ -106,14 +106,19 @@ git reset --hard <branch>
 #undo git add
 git reset
 
+
 # exit from (master|REBASE or MERGING) status
 git rebase --abort
 
+Rebasing is a common way to integrate upstream changes into your local repository. 
+Sync your commits if you are ahead of origin after git fetch
 # git push specific commit
 git fetch
 git rebase
 git cheery-pick <SHA id from log>
 git push
+
+
 
 ####################################################
 # update .gitignore
