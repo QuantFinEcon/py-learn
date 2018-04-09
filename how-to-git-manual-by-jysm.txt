@@ -79,12 +79,41 @@ git add <filepath> && git commit -m "resolved merge conflicts"
 git status --> no more unmerged paths
 git pull --> Already up-to-date.
 
+# save uncommitted changes
 
+1. Commit them on the local branch.	
+git commit -am "My descriptive message"
 
+2. Commit them on another branch, no checkout conflicts.	
+git checkout otherbranch && git commit -am "My descriptive message"
 
+3. Commit them on another branch, conflicts.	
+git stash; git checkout otherbranch; git stash apply; : "resolve conflicts"; git commit -am "My descriptive message"; git stash drop
 
+4. Commit them on a new branch.	
+git checkout -b newbranch; git commit -am "My descriptive message"
 
+5. Stash them for a rainy day.	
+git stash save "my descriptive name"
 
+# undo last 2 uncommitted changes
+git reset --hard HEAD~2
+
+# undo git reset
+git reflog
+git reset --hard <branch>
+
+#undo git add
+git reset
+
+# exit from (master|REBASE or MERGING) status
+git rebase --abort
+
+# git push specific commit
+git fetch
+git rebase
+git cheery-pick <SHA id from log>
+git push
 
 ####################################################
 # update .gitignore
@@ -154,6 +183,9 @@ Identity added: /c/Users/Justin/.ssh/id_rsa (/c/Users/Justin/.ssh/id_rsa)
 
 # try connecting with all keys
 $ ssh -vT git@github.com
+
+
+https://education.github.com/git-cheat-sheet-education.pdf
 
 
 
