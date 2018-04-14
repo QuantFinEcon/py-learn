@@ -7,6 +7,17 @@ Personal notes of a python developer from Singapore
 A place where I save all my nuggets of learnings on Pytthon as well as small projects
 Why do this? To keep my codes all organised w backups!
 
+## Notes
+
+1. deploying package 
+    - sys.path
+    - .pth in sites to add paths to sys.path like adding PYTHONPATH on initialisation of python --> via site.py
+    - __init__.py in parent_folder(import parent_folder) and subfolders(import parent_folder.subfolder) is to create a namespace and            only import modules.py from its folder, outside the folder, or files inside other subfolders outside folder. PEP8 says keep it          flat, not nested so import pandas as __pd to avoid calling import mypackage.pd 
+
+2. 
+
+
+
 ## References
 
 Books I read to gain mastery of Python
