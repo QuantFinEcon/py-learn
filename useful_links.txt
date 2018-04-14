@@ -1,0 +1,17 @@
+http://dask.pydata.org/en/latest/use-cases.html
+https://people.duke.edu/~ccc14/sta-663-2017/18A_Dask.html
+https://jakevdp.github.io/blog/2015/08/14/out-of-core-dataframes-in-python/
+
+http://www.jython.org/
+https://www.python-course.eu/python3_slots.php
+
+https://stackoverflow.com/questions/25962114/how-to-read-a-6-gb-csv-file-with-pandas
+https://dzone.com/articles/python-memory-issues-tips-and-tricks
+https://chase-seibert.github.io/blog/2013/08/03/diagnosing-memory-leaks-python.html
+https://stackoverflow.com/questions/472000/usage-of-slots
+https://docs.python.org/3/library/gc.html
+https://rushter.com/blog/python-garbage-collector/
+https://rushter.com/blog/python-memory-managment/
+https://pymotw.com/3/gc/
+http://tech.labs.oliverwyman.com/blog/2008/11/14/tracing-python-memory-leaks/
+
