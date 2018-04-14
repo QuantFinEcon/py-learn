@@ -11,12 +11,36 @@ Why do this? To keep my codes all organised w backups!
 
 1. deploying package 
     - sys.path
-    - .pth in sites to add paths to sys.path like adding PYTHONPATH on initialisation of python --> via site.py
-    - __init__.py in parent_folder(import parent_folder) and subfolders(import parent_folder.subfolder) is to create a namespace and            only import modules.py from its folder, outside the folder, or files inside other subfolders outside folder. PEP8 says keep it          flat, not nested so import pandas as __pd to avoid calling import mypackage.pd 
+    - .pth in site-packages to add paths to sys.path (like configuring PYTHONPATH) on initialisation of interpreter --> via site.py
+    - `__init__.py in parent_folder(import parent_folder) and subfolders(import parent_folder.subfolder) is to create a namespace and            only import modules.py from its folder, outside the folder, or files inside other subfolders outside folder. PEP8 says keep it          flat, not nested so import pandas as __pd to avoid calling import mypackage.pd 
 
-2. 
+2. logging 
+    - class decorator for all methods of class
 
+3. design patterns
+    - abc raise ImplementationError
 
+4. asynchronous multithreading
+
+5. memory management
+    - gc
+    - psutil / resource
+    - objgraph
+
+6. front end interactive web programming
+    - django
+    - reactJS
+
+7. parallel processing
+    - dask
+
+8. automation
+    - win32com.client
+    - pythoncom
+
+9. Configuration
+    - YAML
+    - JSON
 
 ## References
 
