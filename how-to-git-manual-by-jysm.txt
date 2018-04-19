@@ -119,6 +119,14 @@ git cheery-pick <SHA id from log>
 git push
 
 
+# show branches
+git show-branch --all
+
+#setup new branch from remote server
+net use 
+git cd <new dir>
+git init
+git clone <path>\<foldername>
 
 ####################################################
 # update .gitignore
