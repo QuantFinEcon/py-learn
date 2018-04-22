@@ -55,13 +55,6 @@ Books I read to gain mastery of Python
 
 Contributions are welcome!  For bug reports or requests please [submit an issue](https://github.com/BigPyQuant/silver-adventure/issues).
 
-## Contact
-
-Feel free to contact me to discuss any issues, questions, or comments.
-
-* Twitter: [@ExpectArbitrage](https://twitter.com/ExpectArbitrage)
-* Website: [NoNoiseOnlyAlpha](https://nonoiseonlyalpha.wordpress.com/)
-
 ## License
 
 This repository contains a variety of content; some developed by Yeo Shui Ming, and some from third-parties.  The third-party content is distributed under the license provided by those parties.
