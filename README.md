@@ -59,9 +59,9 @@ Contributions are welcome!  For bug reports or requests please [submit an issue]
 
 This repository contains a variety of content; some developed by Yeo Shui Ming, and some from third-parties.  The third-party content is distributed under the license provided by those parties.
 
-The content developed by Yeo Shui Ming is distributed under the following license:
+The content developed by J. is distributed under the following license:
 
-    Copyright 2018 Yeo Shui Ming
+    Copyright 2018 J.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
