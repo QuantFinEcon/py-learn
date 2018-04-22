@@ -1,0 +1,93 @@
+extraction:
+    - config_csv: 
+        filepath : Template("C:/...")
+        sep : '|'
+        header : null
+        skipfooter : 1
+        skiprows : 1
+        encoding : null
+        names : 
+            - Outstanding
+            - Source
+            - Reporting Date
+        usecols: [8,10,12]
+        na_values :
+            - 'null'
+        dummycol : 
+            column1 : 2018-01-01
+        append : otherbb
+    - config_csv: 
+        filepath : Template("C:/...")
+        sep : '|'
+        header : null
+        skipfooter : 1
+        skiprows : 1
+        encoding : null
+        names : 
+            - Outstanding
+            - Source
+            - Reporting Date
+        usecols: [8,10,12]
+        na_values :
+            - 'null'
+        dummycol : null
+        append : otherbb
+
+transformation :
+    - query:
+        data : otherbb
+        output : delta
+        crosstab:
+            values : Outstanding
+            index : Source
+            columns : Reporting Date
+            aggfunc : 
+                - np.sum
+                - count
+    - query:
+        data : otherbb
+        output : groupby1
+        groupby:
+            aggregation : sum
+            values : Outstanding
+            by : 
+                - Source
+                - Reporting Date
+    - query:
+        data : otherbb
+        output : filter1
+        select:
+            - Outstanding
+            - Source
+        filter:
+            Outstanding : ">0"
+    - query :
+        data: delta
+        output: deltatop3
+        top:
+            by: Source
+            n: 3
+
+    - calculate:
+        data: delta
+        output: delta3
+        difference: 
+            name: diff 2018-04-03 - 2018-04-02 sum
+            columns:
+                - 2018-04-03 sum
+                - 2018-04-02 sum
+        absolute_difference:
+            name: abs diff
+            columns:
+                - 2018-04-03 sum
+                - 2018-04-02 sum
+        summation: 
+            name: summation 20180403 + 20180402
+            columns:
+                - 2018-04-03 sum
+                - 2018-04-02 sum
+        percentage_difference: 
+            name: 2018-04-03 sum - 2018-04-02 sum (%)
+            columns:
+                - 2018-04-03 sum
+                - 2018-04-02 sum
