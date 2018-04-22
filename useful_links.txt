@@ -15,3 +15,8 @@ https://rushter.com/blog/python-memory-managment/
 https://pymotw.com/3/gc/
 http://tech.labs.oliverwyman.com/blog/2008/11/14/tracing-python-memory-leaks/
 
+
+http://net-informations.com/python/iq/global.htm
+http://blog.thedigitalcatonline.com/blog/2014/10/14/decorators-and-metaclasses/
+http://python-3-patterns-idioms-test.readthedocs.io/en/latest/Metaprogramming.html
+
