@@ -1,6 +1,6 @@
 # py-learn
 
-Personal notes of a python developer from Singapore
+Personal notes of a python developer
 
 ## About this GitRepo
 
@@ -59,8 +59,6 @@ Contributions are welcome!  For bug reports or requests please [submit an issue]
 Feel free to contact me to discuss any issues, questions, or comments.
 
 * Twitter: [@ExpectArbitrage](https://twitter.com/ExpectArbitrage)
-* GitHub: [J-YSM](https://github.com/J-YSM)
-* LinkedIn: [yeoshuiming](https://www.linkedin.com/in/yeoshuiming)
 * Website: [NoNoiseOnlyAlpha](https://nonoiseonlyalpha.wordpress.com/)
 
 ## License
