@@ -57,7 +57,7 @@ Contributions are welcome!  For bug reports or requests please [submit an issue]
 
 ## License
 
-This repository contains a variety of content; some developed by Yeo Shui Ming, and some from third-parties.  The third-party content is distributed under the license provided by those parties.
+This repository contains a variety of content; some developed by J., and some from third-parties.  The third-party content is distributed under the license provided by those parties.
 
 The content developed by J. is distributed under the following license:
 
