@@ -49,6 +49,7 @@ Books I read to gain mastery of Python
 - [*Design Patterns*](https://sourcemaking.com/design_patterns/)
 - [*Mastering Object-Oriented Python*](https://www.bookdepository.com/Mastering-Object-Oriented-Python-Steven-Lott/9781783280971?ref=grid-view&qid=1520657285926&sr=1-1)
 - [*Python Patterns/Idioms* by @faif](https://github.com/faif/python-patterns)
+- [*Python Designs Receipes Idioms](http://python-3-patterns-idioms-test.readthedocs.io/)
 
 ## Contributing
 
