@@ -128,6 +128,67 @@ git cd <new dir>
 git init
 git clone <path>\<foldername>
 
+
+
+# forking others' GIT repo
+
+git remote -v
+git remote add upstream <repo_clone_by_https_URL.git>
+git fetch upstream
+git merge upstream master --allow-unrelated-histories
+
+
+# resolve merge conflicts
+
+git config merge.tool vimdiff
+git config merge.conflictstyle diff3
+git config mergetool.prompt false
+
+git mergetool
+git commit -m "Resolve merge conflict"
+git clean
+
+#####################################################################
+# MergeTool help
+#####################################################################
+
+  +----------------------+
+  |       |      |       |
+  |LOCAL  |BASE  |REMOTE |
+  |       |      |       |
+  +----------------------+
+  |      MERGED          |
+  |                      |
+  +----------------------+
+
+LOCAL – this is file from the current branch
+
+BASE – common ancestor, how file looked before both changes
+
+REMOTE – file you are merging into your branch
+
+MERGED – merge result, this is what gets saved in the repo
+
+Navigate with 
+<--Ctrl+W--> with j
+
+If you want to get changes from REMOTE
+
+:diffg RE  
+If you want to get changes from BASE
+
+:diffg BA  
+If you want to get changes from LOCAL
+
+:diffg LO 
+Step 5. Save, Exit, Commit and Clean up
+
+:wqa save and exit from vi
+
+#####################################################################
+
+
+
 ####################################################
 # update .gitignore
 #####################################################
@@ -138,14 +199,6 @@ git rm -r --cached .
 git add .
 # now, commit for new .gitignore to apply
 git commit -m ".gitignore is now working"
-
-
-
-
-
-
-
-
 
 
 
