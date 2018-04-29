@@ -90,4 +90,4 @@ ENV/
 __pycache__
 *.pyc
 .idea
-
+>>>>>>> ec8320036fa81eb4bcdcc3a8616ff6dd45dc025d
