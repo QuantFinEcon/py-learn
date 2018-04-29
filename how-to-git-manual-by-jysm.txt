@@ -129,9 +129,13 @@ git init
 git clone <path>\<foldername>
 
 
+# when HEAD is ahead of MASTER and cannot Push
+git checkout master
+git merge <SHA id from log of fast forward HEAD>
+git push origin master
+
 
 # forking others' GIT repo
-
 git remote -v
 git remote add upstream <repo_clone_by_https_URL.git>
 git fetch upstream
@@ -139,11 +143,9 @@ git merge upstream master --allow-unrelated-histories
 
 
 # resolve merge conflicts
-
 git config merge.tool vimdiff
 git config merge.conflictstyle diff3
 git config mergetool.prompt false
-
 git mergetool
 git commit -m "Resolve merge conflict"
 git clean
