@@ -12,7 +12,7 @@ git commit -m "First Commit"
 
 # copy remote repository URL (or local remote or remote server)
 git remote add origin https://github.com/J-YSM/py-learn
-# verify new remote URL
+# print all your remotes' fetch/push URLs
 git remote -v
 
 # push changes from local repository to GitHub(for all dir under master)
@@ -141,6 +141,8 @@ git remote add upstream <repo_clone_by_https_URL.git>
 git fetch upstream
 git merge upstream master --allow-unrelated-histories
 
+# remove push/fetch URL remote
+git remote remove <upstream where URL is incorrectly entered>
 
 # resolve merge conflicts
 git config merge.tool vimdiff
@@ -188,6 +190,10 @@ Step 5. Save, Exit, Commit and Clean up
 :wqa save and exit from vi
 
 #####################################################################
+
+# manage remotes and clones
+git remote show
+git remote show <origin or upstream>
 
 
 
