@@ -32,3 +32,4 @@ def setup_periodic_tasks(sender, **kwargs):
 def test(arg):
     print(arg)
 setup_periodic_tasks()
+
