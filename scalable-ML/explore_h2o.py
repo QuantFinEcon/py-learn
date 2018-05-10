@@ -207,7 +207,6 @@ list(predict.columns.values)
 import pandas as pd
 
 #iris_data_path = "http://h2o-public-test-data.s3.amazonaws.com/smalldata/iris/iris.csv" # load demonstration data
-iris_df = h2o.import_file(path='C:/Users/1580873/Desktop/Completed_Developments/H2O/iris.csv')
 
 iris_df.as_data_frame().head()
 
