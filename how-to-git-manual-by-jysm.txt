@@ -1,4 +1,4 @@
-####################################################
+﻿####################################################
 # SETTING UP GITHUB FROM LOCAL REPO
 #####################################################
 # go to uninit folder
@@ -117,6 +117,10 @@ git fetch
 git rebase
 git cheery-pick <SHA id from log>
 git push
+
+Rebasing to remove redundant commits u do not wish to push
+git stash 
+git rebase -i HEAD~3 # last 3 commits in log... p=pick, d=drop
 
 
 # show branches
