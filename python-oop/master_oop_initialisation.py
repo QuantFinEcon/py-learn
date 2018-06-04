@@ -53,7 +53,8 @@ class A:
 
 class B:
     def test():
-        print('justin')
+        x = print('justin')
+
 
 a = {1:A, 2:B}
 
