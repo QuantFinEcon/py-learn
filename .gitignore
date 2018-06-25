@@ -16,6 +16,7 @@ var/
 *.docx
 *.xlsx
 *.xls
+*.csv
 *.xlsm
 *.png
 *.jpeg

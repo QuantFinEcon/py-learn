@@ -14,10 +14,10 @@ class list_wrapper(object):
     def __init__(self, iterator=None):
         if iterator:
             self.length = len(iterator)
-            self._x = list(iterator)
+            self._x = list(iterator) #wrapped
         else:
             self.length = 0
-            self._x = list()
+            self._x = list() #wrapped list
 
     @classmethod
     def random(cls, n):
@@ -54,6 +54,30 @@ a.length
 del a.x
 
 list_wrapper.random2(10).x
+
+# =============================================================================
+# overload constructor
+# =============================================================================
+
+class MyData:
+    def __init__(self, data):
+        "Initialize MyData from a sequence"
+        self.data = data
+    
+    @classmethod
+    def fromfile(cls, filename):
+        "Initialize MyData from a file"
+        data = open(filename).readlines()
+        return cls(data)
+    
+    @classmethod
+    def fromdict(cls, datadict):
+        "Initialize MyData from a dict's items"
+        return cls(datadict.items())
+ 
+MyData([1, 2, 3]).data
+MyData.fromfile("test_mydata.txt").data
+MyData.fromdict({"spam": "ham"}).data
 
 #==============================================================================
 # create descriptors - __get__ (non data don't have) and __set__ and __del__
