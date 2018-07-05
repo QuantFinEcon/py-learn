@@ -108,6 +108,10 @@ from sklearn.svm import (SVC,
 from sklearn.cluster import FeatureAgglomeration
 from sklearn.linear_model import BayesianRidge
 
+
+
+FeatureAgglomeration?
+
 # #############################################################################
 # Generate data
 n_samples = 200

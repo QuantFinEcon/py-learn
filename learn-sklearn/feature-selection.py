@@ -3,14 +3,36 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
+#import sklearn.datasets
+#dir(sklearn.datasets)
 from sklearn.datasets import (load_boston,
                               load_iris,
                               load_digits,
                               load_diabetes,
                               load_wine,
                               load_breast_cancer,
+                              fetch_olivetti_faces,
                               make_friedman1,
-                              make_classification) # Bunch
+                              make_classification,
+                              make_blobs,
+                              make_circles)
+
+
+from sklearn.preprocessing import (Binarizer,
+                                   FunctionTransformer,
+                                   Imputer,
+                                   KernelCenterer,
+                                   LabelBinarizer,
+                                   LabelEncoder,
+                                   MaxAbsScaler,
+                                   MinMaxScaler,
+                                   MultiLabelBinarizer,
+                                   Normalizer,
+                                   OneHotEncoder,
+                                   PolynomialFeatures,
+                                   QuantileTransformer,
+                                   RobustScaler,
+                                   StandardScaler,)
 
 from sklearn.feature_selection import (SelectKBest,
                                        SelectPercentile,
@@ -22,20 +44,12 @@ from sklearn.feature_selection import (SelectKBest,
                                        mutual_info_regression,
                                        VarianceThreshold,
                                        RFE, 
-                                       RFECV)
-
-"""
-GenericUnivariateSelect,
-SelectFdr,
-SelectFpr,
-SelectFwe,
-base,
-f_oneway,
-from_model,
-mutual_info_,
-univariate_selection,
-variance_threshold
-"""
+                                       RFECV,
+                                       
+                                       GenericUnivariateSelect,
+                                        SelectFdr,
+                                        SelectFpr,
+                                        SelectFwe,)
 
 from sklearn.feature_extraction import (FeatureHasher,
                                         grid_to_graph,
@@ -209,42 +223,26 @@ from sklearn.svm import (SVC,
 
 from sklearn.cluster import (KMeans,
                              DBSCAN,
-                             FeatureAgglomeration,)
-"""
-AffinityPropagation,
-AgglomerativeClustering,
+                             FeatureAgglomeration,
+                             AgglomerativeClustering?,
+                             AffinityPropagation,
 Birch,
-DBSCAN,
-FeatureAgglomeration,
-KMeans,
 MeanShift,
 MiniBatchKMeans,
 SpectralBiclustering,
 SpectralClustering,
 SpectralCoclustering,
-_dbscan_inner,
-_feature_agglomeration,
-_hierarchical,
-_k_means,
-_k_means_elkan,
 affinity_propagation,
 affinity_propagation_,
 bicluster,
-birch,
-dbscan,
-dbscan_,
 estimate_bandwidth,
 get_bin_seeds,
-hierarchical,
-k_means,
-k_means_,
-linkage_tree,
-mean_shift,
-mean_shift_,
-spectral,
-spectral_clustering,
-ward_tree
-"""
+linkage_tree?,
+ward_tree?)
+
+dir(sklearn.cluster.hierarchical)
+
+
 
 from sklearn.linear_model import (Lasso, #L1 penalty |lambda|, least abs shrinkage and selection operator
                                   LassoCV,
@@ -338,6 +336,7 @@ digits = load_digits(); print(digits.keys())
 diabetes = load_diabetes(); print(diabetes.keys())
 wine = load_wine(); print(wine.keys())
 breast_cancer = load_breast_cancer(); print(breast_cancer.keys())
+faces = fetch_olivetti_faces() #downloading to os.getcwd()
 
 wine.target
 breast_cancer.target
@@ -962,18 +961,237 @@ X_new.shape
 Tree-based feature selection - feature_importances_
 
 ExtraTreesClassifier?
+ExtraTreesClassifier(n_estimators=10, criterion='gini', 
+                     max_depth=None, min_samples_split=2, min_samples_leaf=1, 
+                     min_weight_fraction_leaf=0.0, max_features='auto', 
+                     max_leaf_nodes=None, min_impurity_decrease=0.0, 
+                     min_impurity_split=None, bootstrap=False, oob_score=False, 
+                     n_jobs=1, random_state=None, verbose=0, 
+                     warm_start=False, class_weight=None)
 
+Parameters
+----------
+n_estimators : integer, optional (default=10)
+    The number of trees in the forest.
+
+criterion : string, optional (default="gini")
+    The function to measure the quality of a split. Supported criteria are
+    "gini" for the Gini impurity 
+    and "entropy" for the information gain.
+
+max_features : int, float, string or None, optional (default="auto")
+    The number of features to consider when looking for the best split:
+
+    - If int, then consider `max_features` features at each split.
+    - If float, then `max_features` is a percentage and
+      `int(max_features * n_features)` features are considered at each
+      split.
+    - If "auto", then `max_features=sqrt(n_features)`. <=======
+    - If "sqrt", then `max_features=sqrt(n_features)`.
+    - If "log2", then `max_features=log2(n_features)`.
+    - If None, then `max_features=n_features`.
+
+    Note: the search for a split does not stop until at least one
+    valid partition of the node samples is found, even if it requires to
+    effectively inspect more than ``max_features`` features.
+
+max_depth : integer or None, optional (default=None)
+    The maximum depth of the tree. If None, then nodes are expanded until
+    all leaves are pure or until all leaves contain less than
+    min_samples_split samples.
+
+min_samples_split : int, float, optional (default=2)
+    The minimum number of samples required to split an internal node:
+
+    - If int, then consider `min_samples_split` as the minimum number.
+    - If float, then `min_samples_split` is a percentage and
+      `ceil(min_samples_split * n_samples)` are the minimum
+      number of samples for each split.
+
+    .. versionchanged:: 0.18
+       Added float values for percentages.
+
+min_samples_leaf : int, float, optional (default=1)
+    The minimum number of samples required to be at a leaf node:
+
+    - If int, then consider `min_samples_leaf` as the minimum number.
+    - If float, then `min_samples_leaf` is a percentage and
+      `ceil(min_samples_leaf * n_samples)` are the minimum
+      number of samples for each node.
+
+    .. versionchanged:: 0.18
+       Added float values for percentages.
+
+min_weight_fraction_leaf : float, optional (default=0.)
+    The minimum weighted fraction of the sum total of weights (of all
+    the input samples) required to be at a leaf node. Samples have
+    equal weight when sample_weight is not provided.
+
+max_leaf_nodes : int or None, optional (default=None)
+    Grow trees with ``max_leaf_nodes`` in best-first fashion.
+    Best nodes are defined as relative reduction in impurity.
+    If None then unlimited number of leaf nodes.
+
+min_impurity_decrease : float, optional (default=0.)
+    A node will be split if this split induces a decrease of the impurity
+    greater than or equal to this value.
+
+    The weighted impurity decrease equation is the following:
+
+        N_t / N * (impurity - N_t_R / N_t * right_impurity
+                            - N_t_L / N_t * left_impurity)
+
+    where ``N`` is the total number of samples, ``N_t`` is the number of
+    samples at the current node, ``N_t_L`` is the number of samples in the
+    left child, and ``N_t_R`` is the number of samples in the right child.
+
+    ``N``, ``N_t``, ``N_t_R`` and ``N_t_L`` all refer to the weighted sum,
+    if ``sample_weight`` is passed.
+
+    .. versionadded:: 0.19
+
+bootstrap : boolean, optional (default=False)
+    Whether bootstrap samples are used when building trees.
+
+oob_score : bool, optional (default=False)
+    Whether to use out-of-bag samples to estimate
+    the generalization accuracy.
+
+n_jobs : integer, optional (default=1)
+    The number of jobs to run in parallel for both `fit` and `predict`.
+    If -1, then the number of jobs is set to the number of cores.
+
+random_state : int, RandomState instance or None, optional (default=None)
+    If int, random_state is the seed used by the random number generator;
+    If RandomState instance, random_state is the random number generator;
+    If None, the random number generator is the RandomState instance used
+    by `np.random`.
+
+verbose : int, optional (default=0)
+    Controls the verbosity of the tree building process.
+
+warm_start : bool, optional (default=False)
+    When set to ``True``, reuse the solution of the previous call to fit
+    and add more estimators to the ensemble, otherwise, just fit a whole
+    new forest.
+
+class_weight : dict, list of dicts, "balanced", "balanced_subsample" or None, optional (default=None)
+    Weights associated with classes in the form ``{class_label: weight}``.
+    If not given, all classes are supposed to have weight one. For
+    multi-output problems, a list of dicts can be provided in the same
+    order as the columns of y.
+
+    Note that for multioutput (including multilabel) weights should be
+    defined for each class of every column in its own dict. For example,
+    for four-class multilabel classification weights should be
+    [{0: 1, 1: 1}, {0: 1, 1: 5}, {0: 1, 1: 1}, {0: 1, 1: 1}] instead of
+    [{1:1}, {2:5}, {3:1}, {4:1}].
+
+    The "balanced" mode uses the values of y to automatically adjust
+    weights inversely proportional to class frequencies in the input data
+    as ``n_samples / (n_classes * np.bincount(y))``
+
+    The "balanced_subsample" mode is the same as "balanced" except that weights are
+    computed based on the bootstrap sample for every tree grown.
+
+    For multi-output, the weights of each column of y will be multiplied.
+
+    Note that these weights will be multiplied with sample_weight (passed
+    through the fit method) if sample_weight is specified.
+
+Attributes
+----------
+estimators_ : list of DecisionTreeClassifier
+    The collection of fitted sub-estimators.
+
+classes_ : array of shape = [n_classes] or a list of such arrays
+    The classes labels (single output problem), or a list of arrays of
+    class labels (multi-output problem).
+
+n_classes_ : int or list
+    The number of classes (single output problem), or a list containing the
+    number of classes for each output (multi-output problem).
+
+feature_importances_ : array of shape = [n_features]
+    The feature importances (the higher, the more important the feature).
+
+n_features_ : int
+    The number of features when ``fit`` is performed.
+
+n_outputs_ : int
+    The number of outputs when ``fit`` is performed.
+
+oob_score_ : float
+    Score of the training dataset obtained using an out-of-bag estimate.
+
+oob_decision_function_ : array of shape = [n_samples, n_classes]
+    Decision function computed with out-of-bag estimate on the training
+    set. If n_estimators is small it might be possible that a data point
+    was never left out during the bootstrap. In this case,
+    `oob_decision_function_` might contain NaN.
+    
+values for the parameters controlling the size of the trees
+(e.g. ``max_depth``, ``min_samples_leaf``, etc.) lead to fully grown and
+unpruned trees which can potentially be very large on some data sets. To
+reduce memory consumption, the complexity and size of the trees should be
+controlled by setting those parameter values.    
+    
+implements a meta estimator that fits a number of
+randomized decision trees (a.k.a. extra-trees) on various sub-samples
+of the dataset and use averaging to improve the predictive accuracy
+and control over-fitting.
 """
 X, y = iris.data, iris.target
 X.shape
-clf = ExtraTreesClassifier()
+
+clf = ExtraTreesClassifier(n_estimators=30,
+                           criterion = 'gini',
+                           min_samples_split=2,
+                           min_samples_leaf=1,
+                           min_impurity_decrease=0,
+                           oob_score=False,                           
+                           verbose=1)
 clf = clf.fit(X, y)
-clf.feature_importances_  
+clf.feature_importances_ # last 2 more important
+clf.estimators_
+clf.n_classes_
+set(y)
+
 model = SelectFromModel(clf, prefit=True)
+model.get_support()
 X_new = model.transform(X)
-X_new.shape 
+X_new.shape
 
+"""
+Pixel importances with a parallel forest of trees
+"""
+#faces.images[399].shape (64,64) per face. there is 400 faces. 
+#faces.images.shape (400,64,64) --> (400,-1)
+X = faces.images.reshape((len(faces.images), -1)) #flatten 64x64 to 4096
+X.shape
+y = faces.target
+faces.images[0][0] == X[0][:64]
+faces.images[0][1] == X[0][64:128]
 
+# Build a forest and compute the pixel importances
+forest = ExtraTreesClassifier(n_estimators=1000,
+                              max_features=128,
+                              criterion='gini',
+                              min_samples_leaf=1,
+                              min_samples_split=2,
+                              n_jobs=-1,
+                              random_state=0,
+                              verbose=1)
+
+forest.fit(X, y)
+importances = forest.feature_importances_
+importances = importances.reshape(faces.images[0].shape) # shape (64,64)
+importances.shape
+
+# Plot pixel importances
+plt.matshow(importances, cmap=plt.cm.hot)
+plt.title("Pixel importances with forests of trees")
+plt.show()
 
 
 
