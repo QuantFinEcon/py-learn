@@ -742,15 +742,77 @@ pca_biplot(X_, fa.components_, (1,2), labels=breast_cancer.feature_names)
 
 """
 Independent Component Analysis (ICA)
-- 
+- separates a multivariate signal into additive subcomponents that are maximally independent
+- ICA model does not include a noise term, for the model to be correct, whitening must be applied
+- ICA is not used for reducing dimensionality but for separating superimposed signals
+- separate mixed signals (a problem known as blind source separation)
+
+ICA is an algorithm that finds directions in the feature space corresponding 
+to projections with high non-Gaussianity. PCA, on the other hand, finds 
+orthogonal directions in the raw feature space that correspond to 
+directions accounting for maximum variance. 
+
+PCA decorrelates outputs, ICA make outputs statistically independent
+with an unmixing matrix to retrieve source, although
+it cannot bring back orderings and identity of sources
+
+FastICA?
+
 
 """
+from scipy import signal
+
+# Generate sample data
+np.random.seed(0)
+n_samples = 2000
+time = np.linspace(0, 8, n_samples)
+
+s1 = np.sin(2 * time)  # Signal 1 : sinusoidal signal
+s2 = np.sign(np.sin(3 * time))  # Signal 2 : square signal
+s3 = signal.sawtooth(2 * np.pi * time)  # Signal 3: saw tooth signal
+
+S = np.c_[s1, s2, s3]
+S += 0.2 * np.random.normal(size=S.shape)  # Add noise
+S /= S.std(axis=0)  # whitening
+
+# Mix data
+A = np.array([[1, -0.8, 0.9], 
+              [-0.8, 1, 0.6], 
+              [0.9, 0.6, 1]])  # Mixing matrix
+X = np.dot(S, A.T)  # Generate observations
+
+# Compute ICA
+ica = FastICA(n_components=3)
+S_ = ica.fit_transform(X)  # Reconstruct signals
+A_ = ica.mixing_  # Get estimated mixing matrix
+
+# We can `prove` that the ICA model applies by reverting the unmixing.
+# Returns True if two arrays are element-wise equal within a tolerance.
+np.allclose(X, np.dot(S_, A_.T) + ica.mean_)
+
+# For comparison, compute PCA
+pca = PCA(n_components=3)
+H = pca.fit_transform(X)  # Reconstruct signals based on orthogonal components
+
+# Plot results
+plt.figure(figsize=(20,20))
+
+models = [X, S, S_, H]
+names = ['Observations (mixed signal)',
+         'True Sources',
+         'ICA recovered signals',
+         'PCA recovered signals']
+colors = ['red', 'steelblue', 'orange']
+
+for ii, (model, name) in enumerate(zip(models, names), 1):
+    plt.subplot(4, 1, ii)
+    plt.title(name)
+    for sig, color in zip(model.T, colors):
+        plt.plot(sig, color=color)
+
+plt.tight_layout()
+plt.show()
 
 
 
 
-
-"""
-Factor Analysis
-
-"""
