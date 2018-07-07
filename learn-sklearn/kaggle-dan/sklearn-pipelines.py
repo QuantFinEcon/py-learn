@@ -74,7 +74,7 @@ predictions = my_pipeline.predict(test_X)
 # modify fit arguments
 my_pipeline = make_pipeline(Imputer(), 
                             XGBRegressor(xgbregressor__early_stopping_rounds = 5))
-my_pipeline.fit(train_X, train_y) 
+my_pipeline.fit(train_X, train_y)
 
 
 
