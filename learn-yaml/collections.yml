@@ -1,0 +1,54 @@
+####################
+# COLLECTION TYPES #
+####################
+
+# Nesting uses indentation. 2 space indent is preferred (but not required).
+a_nested_map:
+  key: value
+  another_key: Another Value
+  another_nested_map:
+    hello: hello
+
+# Maps don't have to have string keys.
+0.25: a float key
+
+# Keys can also be complex, like multi-line objects
+# We use ? followed by a space to indicate the start of a complex key.
+? |
+  This is a key
+  that has multiple lines
+: and this is its value
+
+# YAML also allows mapping between sequences with the complex key syntax
+# Some language parsers might complain
+# An example
+# ? - Manchester United
+#   - Real Madrid
+# : [2001-01-01, 2002-02-02]
+
+? !!int 37
+: THirtySeven
+
+? !!python/tuple [5,7]
+: FiftySeven
+
+# Sequences (equivalent to lists or arrays) look like this
+# (note that the '-' counts as indentation):
+a_sequence:
+  - Item 1
+  - Item 2
+  - 0.5  # sequences can contain disparate types.
+  - Item 4
+  - key: value
+    another_key: another_value
+  -
+    - This is a sequence
+    - inside another sequence
+  - - - Nested sequence indicators
+      - can be collapsed
+
+# Since YAML is a superset of JSON, you can also write JSON-style maps and
+# sequences:
+json_map: {"key": "value"}
+json_seq: [3, 2, 1, "takeoff"]
+and quotes are optional: {key: [3, 2, 1, takeoff]}

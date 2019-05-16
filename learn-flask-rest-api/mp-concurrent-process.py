@@ -21,11 +21,12 @@ class Summarize( multiprocessing.Process ):
         print( self.__class__.__name__, "finish", count )
 
 
-result_queue = multiprocessing.SimpleQueue()
-for i in range(100):
-    result_queue.put( (i,i+1,i+2) )
-
 if __name__ == "__main__":
+
+    result_queue = multiprocessing.SimpleQueue()
+
+    for i in range(100):
+        result_queue.put( (i,i+1,i+2) )
 
     """ start 4 concurrent processes """
     # for orderly termination
