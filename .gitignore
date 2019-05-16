@@ -20,6 +20,7 @@ var/
 *.xlsm
 *.png
 *.jpeg
+*.7z
 ~*
 ~.
 
