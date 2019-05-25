@@ -1,3 +1,7 @@
+'''
+declarative mapper
+'''
+
 import sqlalchemy
 from datetime import datetime
 from sqlalchemy import Column, Integer, Float, Date, String, VARCHAR

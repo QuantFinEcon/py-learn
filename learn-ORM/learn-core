@@ -1,0 +1,353 @@
+''''
+examples based on essential SQLalchemy, Chap 1,2
+'''
+import os
+import pandas as pd
+
+os.chdir('C:\\Users\\yeoshuiming\\Dropbox\\GitHub\\py-learn\\learn-ORM')
+os.listdir()
+_owners = pd.read_csv('Owners.csv')
+_pets = pd.read_csv('Pets.csv')
+
+# import sqlalchemy
+from datetime import datetime
+
+from sqlalchemy import (create_engine,
+                        MetaData,
+                        Table,
+                        Column,
+                        ForeignKey,
+                        Index, )
+
+from sqlalchemy import (ForeignKeyConstraint,
+                        PrimaryKeyConstraint,
+                        UniqueConstraint,
+                        CheckConstraint, )
+
+from sqlalchemy.sql import (alias,
+                            all_,
+                            and_,
+                            annotation,
+                            any_,
+                            asc,
+                            base,
+                            between,
+                            bindparam,
+                            case,
+                            cast,
+                            collate,
+                            column,
+                            compiler,
+                            crud,
+                            ddl,
+                            default_comparator,
+                            delete,
+                            desc,
+                            distinct,
+                            dml,
+                            elements,
+                            except_,
+                            except_all,
+                            exists,
+                            expression,
+                            extract,
+                            false, )
+
+from sqlalchemy.sql.expression import *
+from sqlalchemy.sql.functions import *
+
+# dir(sqlalchemy.sql.expression)
+# dir(sqlalchemy.sql.functions)
+
+from sqlalchemy.types import (ARRAY,
+                              BIGINT,
+                              BINARY,
+                              BLOB,
+                              BOOLEAN,
+                              BigInteger,
+                              Binary,
+                              Boolean,
+                              CHAR,
+                              CLOB,
+                              Concatenable,
+                              DATE,
+                              DATETIME,
+                              DECIMAL,
+                              Date,
+                              DateTime,
+                              Enum,
+                              FLOAT,
+                              Float,
+                              INT,
+                              INTEGER,
+                              Indexable,
+                              Integer,
+                              Interval,
+                              JSON,
+                              LargeBinary,
+                              MatchType,
+                              NCHAR,
+                              NULLTYPE,
+                              NUMERIC,
+                              NVARCHAR,
+                              NullType,
+                              Numeric,
+                              PickleType,
+                              REAL,
+                              SMALLINT,
+                              STRINGTYPE,
+                              SchemaType,
+                              SmallInteger,
+                              String,
+                              TEXT,
+                              TIME,
+                              TIMESTAMP,
+                              Text,
+                              Time,
+                              TypeDecorator,
+                              TypeEngine,
+                              Unicode,
+                              UnicodeText,
+                              UserDefinedType,
+                              VARBINARY,
+                              VARCHAR,
+                              Variant,
+                              _Binary, )
+
+engine = create_engine('sqlite:///zoo.db', echo=True, encoding='utf-8',
+                       isolation_level='READ UNCOMMITTED', pool_recycle=3600)
+connection = engine.connect()
+
+metadata = MetaData()
+
+pets = Table('pets', metadata,
+             Column('PetID', String(7), index=True,
+                    # primary_key=True, unique=True,
+                    nullable=False),
+             Column('Name', String(50), index=True),
+             Column('Kind', String(50)),
+             Column('Gender', String(50)),
+             Column('Age', Integer()),
+             Column('OwnerID', Integer()),
+             Column('created_on', DateTime(), default=datetime.now),
+             Column('updated_on', DateTime(), default=datetime.now,
+                    onupdate=datetime.now)
+             )
+
+owners = Table('owners', metadata,
+               Column('OwnerID', Integer(), index=True,
+                      primary_key=True, unique=True,
+                      nullable=False),
+               Column('Name', String(50), index=True),
+               Column('Surname', String(50)),
+               Column('StreetAddress', String(100)),
+               Column('City', String(50)),
+               Column('State', String(50)),
+               Column('StateFull', String(50)),
+               Column('ZipCode', String(50)),
+               Column('created_on', DateTime(), default=datetime.now),
+               Column('updated_on', DateTime(), default=datetime.now,
+                      onupdate=datetime.now)
+               )
+
+type(pets)
+
+# metadata.clear()
+metadata.tables
+# metadata.remove(pets)
+metadata.schema
+
+pets.constraints
+pets.primary_key
+pets.append_constraint(PrimaryKeyConstraint('PetID', name='pets_pk'))
+pets.append_constraint(UniqueConstraint('PetID', name='uix_petID'))
+pets.append_constraint(CheckConstraint('Age >= 0', name='age_positive'))
+
+# composite index
+Index('ix_age', pets.c.OwnerID, pets.c.PetID)
+pets.indexes
+
+ForeignKeyConstraint(columns=[pets.c.OwnerID],
+                     refcolumns=[owners.c.OwnerID], name='pet_owner_fk',
+                     onupdate='CASCADE', ondelete='CASCADE')
+pets.foreign_key_constraints
+pets.foreign_keys
+owners.foreign_keys
+
+# persist tables to disk
+metadata.create_all(engine)
+
+# CRUD
+
+# insert dummy records to db
+ins = insert(pets).values(
+    PetID='JJ-1234',
+    Name='Random',
+    Kind='Fish',
+    Gender='male',
+    Age='0',  # IntegrityError
+    OwnerID=0000
+)
+
+print(str(ins))
+ins.compile().params
+
+rp = connection.execute(ins)
+rp.inserted_primary_key
+
+# bulk insert in execute
+records = _pets.to_dict(orient='records')
+
+bulk_ins = insert(pets)
+rp = connection.execute(
+    bulk_ins,
+    records
+)
+
+# update values in db
+u = update(pets).where(pets.c.Kind.like('%Dog%'))
+u = u.values(Age=(pets.c.Age + 100))
+print(str(u))
+results = connection.execute(u)
+results.rowcount
+
+s = select([pets]).where(pets.c.Kind == 'Dog')
+for r in connection.execute(s): print('{} - {}'.format(r.Kind, r.Age))
+
+# delete
+d = delete(pets).where(pets.c.Kind == 'Fish')
+results = connection.execute(d)
+results.rowcount
+
+# QUERY
+
+s = select([pets])
+s = pets.select()
+print(str(s))
+rp = connection.execute(s)
+results = rp.fetchall()  # first()
+
+for r in rp:  # only can be used once
+    print(r)
+    print(r.Name)
+
+rp.keys()
+type(rp)
+type(results)
+type(results[0])
+results[0]
+results[0][1]
+results[0].Name
+results[0][pets.c.Name]
+
+# iterable
+for r in connection.execute(s):
+    print('{0} - {1}'.format(r.Name, r.PetID))
+
+s = select([pets.c.PetID, pets.c.Name, pets.c.Gender])
+s = s.order_by(desc(pets.c.Name))
+s = s.limit(5)
+for r in connection.execute(s): print(r)
+
+s = select([pets.c.PetID,
+            pets.c.Kind,
+            'gender is: ' + pets.c.Gender,
+            cast(pets.c.Age * pets.c.Age, Numeric(12, 2)).label('age_sq'),
+            pets.c.Age])
+s = s.where(
+    and_(pets.c.Gender == 'male',
+         or_(pets.c.Age >= 10, pet.c.Age <= 5))
+)
+
+print(str(s))
+for r in connection.execute(s): print(r)
+
+s = select([pets.c.Gender,
+            pets.c.Kind,
+            (func.sum(pets.c.Age) / func.count(pets.c.Age)).label('avr_age'),
+            func.max(pets.c.Age), func.min(pets.c.Age)])
+s = s.group_by(pets.c.Gender, pets.c.Kind)
+
+print(str(s))
+for r in connection.execute(s): print(r)
+
+# join
+owners
+records = _owners.to_dict(orient='records')
+bulk_ins = insert(owners)
+rp = connection.execute(
+    bulk_ins,
+    records
+)
+
+columns = [pets.c.PetID, pets.c.Name, owners.c.OwnerID, owners.c.City]
+s = select(columns)
+s = s.select_from(pets.outerjoin(owners))  # .where(pets.c.Kind == 'Dog')
+print(str(s))
+for r in connection.execute(s): print(r)
+
+columns = [owners.c.City, pets.c.Kind, count('*')]
+s = select(columns)
+s = s.select_from(pets.outerjoin(owners))  # .where(pets.c.Kind == 'Dog')
+s = s.group_by(owners.c.City, pets.c.Kind)
+print(str(s))
+for r in connection.execute(s): print(r)
+
+# alias for self joins
+pets_pets = pets.alias()  # auto alias or add ur own name
+s = select([pets.c.Name, pets_pets.c.Name],
+           and_(pets.c.PetID == pets_pets.c.PetID,
+                pets.c.Name == pets_pets.c.Name)
+           )
+print(s)
+s = select([pets.c.Name, pets_pets.c.Name],
+           pets.c.PetID == pets_pets.c.PetID
+           )
+print(s)
+for r in connection.execute(s): print(r)
+
+# raw QUERY
+results = connection.execute("select * from pets").fetchall()
+for r in results: print(r)
+
+# reflecting table to another db
+metadata.tables.keys()
+
+# persist tables to memory
+metadata2 = MetaData()
+temp = create_engine('sqlite:///:memory:', echo=True)
+metadata2.create_all(temp)
+temp_connection = temp.connect()
+metadata2.tables.keys()
+# metadata2.clear()
+
+pets1 = Table('pets',metadata,autoload=True,autoload_with=temp)
+pets1.c.keys()
+s=select([pets1]).limit(10)
+print(s)
+temp_connection.execute(s).fetchall()
+
+pets1.foreign_keys
+print(pets1.join(owners))  # foreign keys not reflected
+pets1.append_constraint(
+    ForeignKeyConstraint(columns=['OwnerID'],refcolumns=['owners.OwnerID'])
+)
+pets1 #CheckConstraint cannot be reflected
+
+# reflecting entire db to another db
+metadata2.tables.keys()
+metadata2.reflect(bind=engine)
+
+# reflection on self db
+metadata.tables.keys()
+metadata.reflect(bind=engine)
+
+
+
+
+
+
+_owners.head()
+_pets.head()
+
+from sqlalchemy.sql import
