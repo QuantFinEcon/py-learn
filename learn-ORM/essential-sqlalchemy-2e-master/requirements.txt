@@ -1,6 +1,6 @@
 -f file:///Users/jasomyer/Library/Caches/org.pip-installer.pip/Wheelhouse
 backports.ssl-match-hostname==3.4.0.2
-certifi==14.5.14
+certifi==2022.12.7
 flake8==2.4.0
 gnureadline==6.3.3
 ipython==3.0.0
