@@ -21,4 +21,4 @@ rednose==0.4.1
 SQLAlchemy==1.0.8
 terminado==0.5
 tornado==4.1
-wheel==0.24.0
+wheel==0.38.1
