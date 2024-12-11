@@ -4,7 +4,7 @@ certifi==14.5.14
 flake8==2.4.0
 gnureadline==6.3.3
 ipython==3.0.0
-Jinja2==2.7.3
+Jinja2==2.11.3
 jsonschema==2.4.0
 MarkupSafe==0.23
 mccabe==0.3
